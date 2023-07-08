@@ -6,6 +6,9 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import Tab from '../components/Tab';
 import Badge from '../components/Badge';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import SearchBar from '../components/SearchBar';
 
 const Home = () => {
   const onPress = () => {
@@ -13,11 +16,11 @@ const Home = () => {
   };
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
-      <Header title={'Azzahri A.'} type={1} />
-      {/* <Button onPress={onPress} title={'Donate'} /> */}
-      <Tab onPress={onPress} title={'Highlight'} />
-      <Tab onPress={onPress} isInactive title={'Donate'} />
-      <Badge title={'Environment'} />
+      <SearchBar
+        onPress={text => {
+          console.log(text);
+        }}
+      />
     </SafeAreaView>
   );
 };
