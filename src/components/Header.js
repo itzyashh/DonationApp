@@ -18,17 +18,21 @@ const Header = props => {
   };
   return (
     <View>
-      <Text style={styleToApply()}>{props.title}</Text>
+      <Text style={[styleToApply(), props.color && {color: props.color}]}>
+        {props.title}
+      </Text>
     </View>
   );
 };
 Header.defaultProps = {
   title: '',
   type: 1,
+  color: '#000',
 };
 Header.propTypes = {
   title: PropTypes.string,
   type: PropTypes.number,
+  color: PropTypes.string,
 };
 
 const styles = StyleSheet.create({
