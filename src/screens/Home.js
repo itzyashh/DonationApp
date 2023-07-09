@@ -1,32 +1,96 @@
-import {View, Text, SafeAreaView} from 'react-native';
 import React from 'react';
+import {
+  Text,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  Image,
+  Pressable,
+} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {globalStyle} from '../../assets/fonts/styles/globalStyle';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '../../assets/fonts/styles/scaling';
 import Header from '../components/Header';
-import Button from '../components/Button';
-import Tab from '../components/Tab';
-import Badge from '../components/Badge';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import HighlightedImage from '../components/HighlightedImage';
 import SearchBar from '../components/SearchBar';
-import SingleDonationItem from '../components/SingleDonationItem';
 
 const Home = () => {
-  const onPress = () => {
-    console.log('Button Pressed');
-  };
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  console.log(user);
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
-      <SingleDonationItem
-        BadgeTitle="Environment"
-        uri={
-          'https://img.pixers.pics/pho_wat(s3:700/FO/44/24/64/31/700_FO44246431_ab024cd8251bff09ce9ae6ecd05ec4a8.jpg,525,700,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,305,650,jpg)/stickers-cactus-cartoon-illustration.jpg.jpg'
-        }
-        title="Tree Cactus"
-        price={44}
-      />
+      <ScrollView>
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.greeting}>Hello,</Text>
+            <Header
+              key={1}
+              title={
+                user.firstName +
+                ' ' +
+                user.lastName.slice(0, 1).concat('.') +
+                '👋'
+              }
+            />
+          </View>
+
+          <Image
+            resizeMode="contain"
+            source={{uri: user.profilePicture}}
+            style={styles.image}
+          />
+        </View>
+        <View style={styles.searchBarContainer}>
+          <SearchBar
+            placeholder={'Search'}
+            onPress={value => console.log(value)}
+          />
+        </View>
+        <View style={styles.highlightedImageContainer}>
+          <HighlightedImage onPress={() => console.log('pressed')} />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(24),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  greetingContainer: {},
+  greeting: {
+    color: '#636776',
+    fontFamily: 'Inter',
+    fontSize: scaleFontSize(16),
+    fontWeight: '400',
+    letterSpacing: 0.32,
+    marginBottom: verticalScale(5),
+  },
+  image: {
+    width: horizontalScale(50),
+    height: verticalScale(50),
+  },
+  searchBarContainer: {
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(24),
+  },
+  highlightedImageContainer: {
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(24),
+    maxHeight: verticalScale(160),
+  },
+});
 
 export default Home;
