@@ -3,10 +3,12 @@ import {persistReducer, persistStore} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
+import Categories from './reducers/Categories';
 import User from './reducers/User';
 
 const rootReducer = combineReducers({
   user: User,
+  categories: Categories,
 });
 const persistConfig = {
   key: 'root',

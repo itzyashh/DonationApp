@@ -22,8 +22,10 @@ import SearchBar from '../components/SearchBar';
 
 const Home = () => {
   const user = useSelector(state => state.user);
+  const categories = useSelector(state => state.categories);
+
   const dispatch = useDispatch();
-  console.log(user);
+  console.log(categories);
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
       <ScrollView>
