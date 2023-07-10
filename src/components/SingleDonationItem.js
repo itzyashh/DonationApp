@@ -20,7 +20,7 @@ const SingleDonationItem = props => {
         <Image source={{uri: props.uri}} style={styles.image} />
       </View>
       <View style={styles.donationDetails}>
-        <Header title={props.title} type={3} />
+        <Header title={props.title} type={3} numberOfLines={1} />
         <Header title={'$' + price} color={'#156CF7'} type={3} />
       </View>
     </Pressable>
@@ -39,7 +39,7 @@ export default SingleDonationItem;
 
 const styles = StyleSheet.create({
   image: {
-    width: horizontalScale(155),
+    width: horizontalScale(140),
     height: verticalScale(170),
     borderRadius: horizontalScale(20),
   },

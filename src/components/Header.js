@@ -1,6 +1,7 @@
-import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {View, Text, StyleSheet} from 'react-native';
+
 import {scaleFontSize} from '../../assets/fonts/styles/scaling';
 
 const Header = props => {
@@ -18,7 +19,9 @@ const Header = props => {
   };
   return (
     <View>
-      <Text style={[styleToApply(), props.color && {color: props.color}]}>
+      <Text
+        numberOfLines={props.numberOfLines ? props.numberOfLines : null}
+        style={[styleToApply(), props.color && {color: props.color}]}>
         {props.title}
       </Text>
     </View>
@@ -33,6 +36,7 @@ Header.propTypes = {
   title: PropTypes.string,
   type: PropTypes.number,
   color: PropTypes.string,
+  numberOfLines: PropTypes.number,
 };
 
 const styles = StyleSheet.create({

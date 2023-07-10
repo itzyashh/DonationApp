@@ -142,20 +142,22 @@ const Home = () => {
         {donationsItems.length > 0 && (
           <View style={styles.donationsItemContainer}>
             {donationsItems.map((item, index) => (
-              <SingleDonationItem
-                BadgeTitle={
-                  categories.categories.filter(
-                    value => categories.selectedCategoryId === value.categoryId,
-                  )[0].name
-                }
-                donationItemId={item.donationItemId}
-                key={index}
-                onPress={value => console.log(value)}
-                title={item.name}
-                uri={item.image}
-                item={item}
-                price={parseFloat(item.price)}
-              />
+              <View style={styles.singleDonationItem} key={item.donationItemId}>
+                <SingleDonationItem
+                  BadgeTitle={
+                    categories.categories.filter(
+                      value =>
+                        categories.selectedCategoryId === value.categoryId,
+                    )[0].name
+                  }
+                  donationItemId={item.donationItemId}
+                  onPress={value => console.log(value)}
+                  title={item.name}
+                  uri={item.image}
+                  item={item}
+                  price={parseFloat(item.price)}
+                />
+              </View>
             ))}
           </View>
         )}
@@ -204,6 +206,13 @@ const styles = StyleSheet.create({
   donationsItemContainer: {
     marginTop: verticalScale(20),
     marginHorizontal: horizontalScale(24),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+  singleDonationItem: {
+    maxWidth: '49%',
+    marginBottom: verticalScale(23),
   },
 });
 
