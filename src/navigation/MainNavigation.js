@@ -1,3 +1,4 @@
+import DonationItemDetails from '../screens/DonationItemDetails';
 import Home from '../screens/Home';
 
 const {createNativeStackNavigator} = require('@react-navigation/native-stack');
@@ -12,6 +13,10 @@ const MainNavigation = () => {
         headerShown: false,
       }}>
       <Stack.Screen name={Routes.home} component={Home} />
+      <Stack.Screen
+        name={Routes.donationItemDetails}
+        component={DonationItemDetails}
+      />
     </Stack.Navigator>
   );
 };

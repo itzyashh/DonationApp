@@ -21,14 +21,18 @@ import {
   resetCategories,
   setSelectedCategoryId,
 } from '../../redux/reducers/Categories';
-import {resetDonations} from '../../redux/reducers/Donations';
+import {
+  resetDonations,
+  setSelectedDonationId,
+} from '../../redux/reducers/Donations';
 import Header from '../components/Header';
 import HighlightedImage from '../components/HighlightedImage';
 import SearchBar from '../components/SearchBar';
 import SingleDonationItem from '../components/SingleDonationItem';
 import Tab from '../components/Tab';
+import {Routes} from '../navigation/Routes';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const dispatch = useDispatch();
   // dispatch(resetCategories());
   // dispatch(resetDonations());
@@ -41,6 +45,9 @@ const Home = () => {
   const [categoryList, setCategoryList] = React.useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = React.useState(false);
   const categoryPageSize = 4;
+  const badgeTitle = categories.categories.filter(
+    value => categories.selectedCategoryId === value.categoryId,
+  )[0].name;
 
   React.useEffect(() => {
     const items = donations.items.filter(value =>
@@ -144,14 +151,12 @@ const Home = () => {
             {donationsItems.map((item, index) => (
               <View style={styles.singleDonationItem} key={item.donationItemId}>
                 <SingleDonationItem
-                  BadgeTitle={
-                    categories.categories.filter(
-                      value =>
-                        categories.selectedCategoryId === value.categoryId,
-                    )[0].name
-                  }
+                  BadgeTitle={badgeTitle}
                   donationItemId={item.donationItemId}
-                  onPress={value => console.log(value)}
+                  onPress={selectedDonationId => {
+                    dispatch(setSelectedDonationId(selectedDonationId));
+                    navigation.navigate(Routes.donationItemDetails);
+                  }}
                   title={item.name}
                   uri={item.image}
                   item={item}
