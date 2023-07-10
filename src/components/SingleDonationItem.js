@@ -1,16 +1,18 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+
 import {
   horizontalScale,
   verticalScale,
 } from '../../assets/fonts/styles/scaling';
 import Badge from './Badge';
 import Header from './Header';
+
 const SingleDonationItem = props => {
   let price = props.price.toFixed(2);
   return (
-    <View>
+    <Pressable onPress={() => props.onPress(props.donationItemId)}>
       <View>
         <View style={styles.badge}>
           <Badge title={props.BadgeTitle} />
@@ -21,7 +23,7 @@ const SingleDonationItem = props => {
         <Header title={props.title} type={3} />
         <Header title={'$' + price} color={'#156CF7'} type={3} />
       </View>
-    </View>
+    </Pressable>
   );
 };
 SingleDonationItem.propTypes = {
@@ -29,6 +31,8 @@ SingleDonationItem.propTypes = {
   uri: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  donationItemId: PropTypes.number.isRequired,
+  onPress: PropTypes.func,
 };
 
 export default SingleDonationItem;

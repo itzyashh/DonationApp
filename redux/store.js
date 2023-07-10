@@ -4,11 +4,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
 import Categories from './reducers/Categories';
+import Donations from './reducers/Donations';
 import User from './reducers/User';
 
 const rootReducer = combineReducers({
   user: User,
   categories: Categories,
+  donations: Donations,
 });
 const persistConfig = {
   key: 'root',

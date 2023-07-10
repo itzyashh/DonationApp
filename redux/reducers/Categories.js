@@ -55,18 +55,18 @@ const initialState = {
       name: 'Art and Craft Supplies',
     },
   ],
-  selectedCategoryID: 1,
+  selectedCategoryId: 1,
 };
 
 const Categories = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    resetCategories: state => initialState,
-    setSelectedCategoryID: (state, action) => {
-      state.selectedCategoryID = action.payload;
+    resetCategories: () => initialState,
+    setSelectedCategoryId: (state, action) => {
+      state.selectedCategoryId = action.payload;
     },
   },
 });
-export const {setSelectedCategoryID, resetCategories} = Categories.actions;
+export const {setSelectedCategoryId, resetCategories} = Categories.actions;
 export default Categories.reducer;

@@ -1,11 +1,13 @@
-import {View, Text, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
+
 import {
   horizontalScale,
   scaleFontSize,
   verticalScale,
 } from '../../assets/fonts/styles/scaling';
+
 const Tab = props => {
   const [width, setWidth] = React.useState(0);
   const textRef = React.useRef(null);
@@ -19,8 +21,9 @@ const Tab = props => {
       onPress={props.onPress}
       style={[styles.Tab, props.isInactive && styles.inactiveTab, tabWidth]}>
       <Text
-        onTextLayout={e => {
-          setWidth(e.nativeEvent.lines[0].width);
+        numberOfLines={1}
+        onTextLayout={event => {
+          setWidth(event.nativeEvent.lines[0].width);
         }}
         ref={textRef}
         style={[styles.title, props.isInactive && styles.inactiveTitle]}>
