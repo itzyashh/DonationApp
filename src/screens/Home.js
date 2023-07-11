@@ -45,9 +45,6 @@ const Home = ({navigation}) => {
   const [categoryList, setCategoryList] = React.useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = React.useState(false);
   const categoryPageSize = 4;
-  const badgeTitle = categories.categories.filter(
-    value => categories.selectedCategoryId === value.categoryId,
-  )[0].name;
 
   React.useEffect(() => {
     const items = donations.items.filter(value =>
@@ -148,22 +145,31 @@ const Home = ({navigation}) => {
         </View>
         {donationsItems.length > 0 && (
           <View style={styles.donationsItemContainer}>
-            {donationsItems.map((item, index) => (
-              <View style={styles.singleDonationItem} key={item.donationItemId}>
-                <SingleDonationItem
-                  BadgeTitle={badgeTitle}
-                  donationItemId={item.donationItemId}
-                  onPress={selectedDonationId => {
-                    dispatch(setSelectedDonationId(selectedDonationId));
-                    navigation.navigate(Routes.donationItemDetails);
-                  }}
-                  title={item.name}
-                  uri={item.image}
-                  item={item}
-                  price={parseFloat(item.price)}
-                />
-              </View>
-            ))}
+            {donationsItems.map((item, index) => {
+              const badgeTitle = categories.categories.filter(
+                value => categories.selectedCategoryId === value.categoryId,
+              )[0].name;
+              return (
+                <View
+                  style={styles.singleDonationItem}
+                  key={item.donationItemId}>
+                  <SingleDonationItem
+                    BadgeTitle={badgeTitle}
+                    donationItemId={item.donationItemId}
+                    onPress={selectedDonationId => {
+                      dispatch(setSelectedDonationId(selectedDonationId));
+                      navigation.navigate(Routes.donationItemDetails, {
+                        badgeTitle,
+                      });
+                    }}
+                    title={item.name}
+                    uri={item.image}
+                    item={item}
+                    price={parseFloat(item.price)}
+                  />
+                </View>
+              );
+            })}
           </View>
         )}
       </ScrollView>
