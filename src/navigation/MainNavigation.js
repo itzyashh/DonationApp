@@ -1,3 +1,5 @@
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+
 import DonationItemDetails from '../screens/DonationItemDetails';
 import Home from '../screens/Home';
 
