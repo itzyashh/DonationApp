@@ -13,22 +13,34 @@ import {
   horizontalScale,
   verticalScale,
 } from '../../assets/fonts/styles/scaling';
+import BackButton from '../components/BackButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import Input from '../components/Input';
-import {Routes} from '../navigation/Routes';
 
-const Login = ({navigation}) => {
+const Register = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
   console.log('email', email);
   console.log('password', password);
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
+      <View style={styles.backButton}>
+        <BackButton onPress={() => navigation.goBack()} />
+      </View>
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}>
-        <Header title="Welcome Back" type={1} />
+        <Header title="Hello and Welcome !" type={1} />
+        <View style={styles.fullName}>
+          <Input
+            placeholder={'Enter your full name'}
+            label="First & Last Name"
+            onChangeText={val => setFullName(val)}
+            secureTextEntry={false}
+          />
+        </View>
         <View style={styles.email}>
           <Input
             placeholder={'Enter your email'}
@@ -45,25 +57,27 @@ const Login = ({navigation}) => {
           secureTextEntry={true}
         />
         <View style={styles.button}>
-          <Button onPress={() => console.log('Pressed')} title={'Login'} />
+          <Button onPress={() => console.log('Pressed')} title={'Register'} />
         </View>
-        <Pressable
-          onPress={() => navigation.navigate(Routes.register)}
-          style={styles.registrationButton}>
-          <Header color={'#156CF7'} title="Don't have an account?" type={3} />
-        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({
+  backButton: {
+    marginTop: verticalScale(7),
+    marginLeft: horizontalScale(14),
+  },
   container: {
     paddingHorizontal: horizontalScale(24),
     justifyContent: 'center',
-    marginTop: verticalScale(163),
+    marginTop: verticalScale(102),
+  },
+  fullName: {
+    marginTop: verticalScale(24),
   },
   email: {
     marginVertical: verticalScale(24),
