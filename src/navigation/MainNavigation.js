@@ -2,6 +2,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import DonationItemDetails from '../screens/DonationItemDetails';
 import Home from '../screens/Home';
+import Login from '../screens/Login';
 
 const {createNativeStackNavigator} = require('@react-navigation/native-stack');
 const {Routes} = require('./Routes');
@@ -14,6 +15,7 @@ const MainNavigation = () => {
       screenOptions={{
         headerShown: false,
       }}>
+      <Stack.Screen name={Routes.login} component={Login} />
       <Stack.Screen name={Routes.home} component={Home} />
       <Stack.Screen
         name={Routes.donationItemDetails}
