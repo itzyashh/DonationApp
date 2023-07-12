@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 
 import {signInUser} from '../../api/user';
 import {globalStyle} from '../../assets/fonts/styles/globalStyle';
@@ -14,6 +15,7 @@ import {
   horizontalScale,
   verticalScale,
 } from '../../assets/fonts/styles/scaling';
+import {logIn, reset} from '../../redux/reducers/User';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import Input from '../components/Input';
@@ -23,7 +25,8 @@ const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
+  const dispatch = useDispatch();
+  // dispatch(reset());
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
       <ScrollView
@@ -50,14 +53,14 @@ const Login = ({navigation}) => {
         {error.length > 0 && <Text style={styles.error}>{error}</Text>}
         <View style={styles.button}>
           <Button
-            isDisabled={email === '' || password === '' ? true : false}
+            isDisabled={email === '' || password === ''}
             onPress={async () => {
               let user = await signInUser(email, password);
               if (!user.status) {
                 setError(user.error);
               } else {
                 setError('');
-                navigation.navigate(Routes.home);
+                dispatch(logIn(user.data));
               }
             }}
             title={'Login'}

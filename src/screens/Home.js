@@ -8,9 +8,12 @@ import {
   Image,
   Pressable,
   FlatList,
+  Touchable,
+  TouchableOpacity,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {signOutUser} from '../../api/user';
 import {globalStyle} from '../../assets/fonts/styles/globalStyle';
 import {
   horizontalScale,
@@ -25,6 +28,7 @@ import {
   resetDonations,
   setSelectedDonationId,
 } from '../../redux/reducers/Donations';
+import {reset} from '../../redux/reducers/User';
 import Header from '../components/Header';
 import HighlightedImage from '../components/HighlightedImage';
 import SearchBar from '../components/SearchBar';
@@ -70,28 +74,29 @@ const Home = ({navigation}) => {
     }
     return items.slice(startIndex, endIndex);
   };
+  console.log(user);
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
       <ScrollView>
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Hello,</Text>
-            <Header
-              key={1}
-              title={
-                user.firstName +
-                ' ' +
-                user.lastName.slice(0, 1).concat('.') +
-                '👋'
-              }
-            />
+            <Header key={1} title={user.displayName + ' 👋'} />
           </View>
-
-          <Image
-            resizeMode="contain"
-            source={{uri: user.profilePicture}}
-            style={styles.image}
-          />
+          <View>
+            <Image
+              resizeMode="contain"
+              source={{uri: user.profilePicture}}
+              style={styles.image}
+            />
+            <TouchableOpacity
+              onPress={async () => {
+                await signOutUser();
+                dispatch(reset());
+              }}>
+              <Header type={3} title={'Logout'} />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.searchBarContainer}>
           <SearchBar

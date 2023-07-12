@@ -65,3 +65,7 @@ export const signInUser = async (email, password) => {
     };
   }
 };
+
+export const signOutUser = async () => {
+  auth().signOut();
+};

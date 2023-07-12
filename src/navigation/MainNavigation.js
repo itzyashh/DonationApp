@@ -10,15 +10,24 @@ const {Routes} = require('./Routes');
 
 const Stack = createNativeStackNavigator();
 
-const MainNavigation = () => {
+const NonAuthenticated = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}>
       <Stack.Screen name={Routes.login} component={Login} />
-      <Stack.Screen name={Routes.home} component={Home} />
       <Stack.Screen name={Routes.register} component={Register} />
+    </Stack.Navigator>
+  );
+};
+const Authenticated = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name={Routes.home} component={Home} />
       <Stack.Screen
         name={Routes.donationItemDetails}
         component={DonationItemDetails}
@@ -27,4 +36,4 @@ const MainNavigation = () => {
   );
 };
 
-export default MainNavigation;
+export {NonAuthenticated, Authenticated};

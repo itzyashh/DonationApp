@@ -6,7 +6,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
 
 import store, {persistor} from './redux/store';
-import MainNavigation from './src/navigation/MainNavigation';
+import RootNavigation from './src/navigation/RootNavigation';
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
       <PersistGate persistor={persistor} loading={null}>
         <GestureHandlerRootView style={{flex: 1}}>
           <NavigationContainer>
-            <MainNavigation />
+            <RootNavigation />
           </NavigationContainer>
         </GestureHandlerRootView>
       </PersistGate>
