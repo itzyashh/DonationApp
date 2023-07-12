@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 
+import {createUser} from '../../api/user';
 import {globalStyle} from '../../assets/fonts/styles/globalStyle';
 import {
   horizontalScale,
@@ -22,8 +23,19 @@ const Register = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [reset, setReset] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(false);
+
+  const resetError = () => {
+    setError('');
+    setSuccess('');
+  };
+
   console.log('email', email);
   console.log('password', password);
+  console.log('fullName', fullName);
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
       <View style={styles.backButton}>
@@ -35,6 +47,7 @@ const Register = ({navigation}) => {
         <Header title="Hello and Welcome !" type={1} />
         <View style={styles.fullName}>
           <Input
+            autoCorrect={false}
             placeholder={'Enter your full name'}
             label="First & Last Name"
             onChangeText={val => setFullName(val)}
@@ -43,6 +56,7 @@ const Register = ({navigation}) => {
         </View>
         <View style={styles.email}>
           <Input
+            autoCapitalize="none"
             placeholder={'Enter your email'}
             label="Email"
             onChangeText={val => setEmail(val)}
@@ -56,8 +70,30 @@ const Register = ({navigation}) => {
           onChangeText={val => setPassword(val)}
           secureTextEntry={true}
         />
+        {error.length > 0 && <Text style={styles.error}>{error}</Text>}
+        {success.length > 0 && <Text style={styles.success}>{success}</Text>}
         <View style={styles.button}>
-          <Button onPress={() => console.log('Pressed')} title={'Register'} />
+          <Button
+            isDisabled={
+              fullName.length < 3 ||
+              email.length < 5 ||
+              password.length < 4 ||
+              btnDisabled
+            }
+            title={'Register'}
+            onPress={async () => {
+              resetError();
+              let user = await createUser(fullName, email, password);
+              if (user.error) {
+                setError(user.error);
+              } else {
+                setError('');
+                setSuccess('You have successfully registered!');
+                setBtnDisabled(true);
+                setTimeout(() => navigation.navigate('Login'), 3000);
+              }
+            }}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -88,5 +124,17 @@ const styles = StyleSheet.create({
   },
   registrationButton: {
     alignItems: 'center',
+  },
+  error: {
+    marginTop: verticalScale(24),
+    color: 'red',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  success: {
+    marginTop: verticalScale(24),
+    color: 'green',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
