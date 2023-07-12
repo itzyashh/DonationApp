@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 
+import {signInUser} from '../../api/user';
 import {globalStyle} from '../../assets/fonts/styles/globalStyle';
 import {
   horizontalScale,
@@ -21,8 +22,8 @@ import {Routes} from '../navigation/Routes';
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  console.log('email', email);
-  console.log('password', password);
+  const [error, setError] = useState('');
+
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
       <ScrollView
@@ -31,6 +32,7 @@ const Login = ({navigation}) => {
         <Header title="Welcome Back" type={1} />
         <View style={styles.email}>
           <Input
+            autoCapitalize="none"
             placeholder={'Enter your email'}
             label="Email"
             onChangeText={val => setEmail(val)}
@@ -44,8 +46,22 @@ const Login = ({navigation}) => {
           onChangeText={val => setPassword(val)}
           secureTextEntry={true}
         />
+
+        {error.length > 0 && <Text style={styles.error}>{error}</Text>}
         <View style={styles.button}>
-          <Button onPress={() => console.log('Pressed')} title={'Login'} />
+          <Button
+            isDisabled={email === '' || password === '' ? true : false}
+            onPress={async () => {
+              let user = await signInUser(email, password);
+              if (!user.status) {
+                setError(user.error);
+              } else {
+                setError('');
+                navigation.navigate(Routes.home);
+              }
+            }}
+            title={'Login'}
+          />
         </View>
         <Pressable
           onPress={() => navigation.navigate(Routes.register)}
@@ -74,5 +90,11 @@ const styles = StyleSheet.create({
   },
   registrationButton: {
     alignItems: 'center',
+  },
+  error: {
+    marginTop: verticalScale(24),
+    color: 'red',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });

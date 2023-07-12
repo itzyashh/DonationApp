@@ -25,7 +25,6 @@ const Register = ({navigation}) => {
   const [fullName, setFullName] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [reset, setReset] = useState(false);
   const [btnDisabled, setBtnDisabled] = useState(false);
 
   const resetError = () => {
@@ -33,9 +32,6 @@ const Register = ({navigation}) => {
     setSuccess('');
   };
 
-  console.log('email', email);
-  console.log('password', password);
-  console.log('fullName', fullName);
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
       <View style={styles.backButton}>
