@@ -64,6 +64,13 @@ You've successfully run and modified your React Native App. :partying_face:
 - If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
 - If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
 
+# App Overview
+![Screenshot 2023-07-14 at 14 32 41](https://github.com/itzyashh/DonationApp/assets/82391577/d8d51449-8fa4-4c93-8afd-5bf130e1db2e)
+![Screenshot 2023-07-14 at 14 32 53](https://github.com/itzyashh/DonationApp/assets/82391577/619f9333-5dba-49f3-ae76-6fb9b1685516)
+![Screenshot 2023-07-14 at 14 32 03](https://github.com/itzyashh/DonationApp/assets/82391577/6fd297a0-c58d-4146-8dc1-4523c391665a)
+
+
+
 # Troubleshooting
 
 If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
