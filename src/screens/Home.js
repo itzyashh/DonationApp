@@ -10,7 +10,22 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 
+import {signOutUser} from '../../api/user';
 import {globalStyle} from '../../assets/fonts/styles/globalStyle';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '../../assets/fonts/styles/scaling';
+import {
+  resetCategories,
+  setSelectedCategoryId,
+} from '../../redux/reducers/Categories';
+import {
+  resetDonations,
+  setSelectedDonationId,
+} from '../../redux/reducers/Donations';
+import {reset} from '../../redux/reducers/User';
 import Header from '../components/Header';
 import Tab from '../components/Tab';
 import Badge from '../components/Badge';
@@ -74,5 +89,55 @@ const Home = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(24),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  greetingContainer: {},
+  greeting: {
+    color: '#636776',
+    fontFamily: 'Inter',
+    fontSize: scaleFontSize(16),
+    fontWeight: '400',
+    letterSpacing: 0.32,
+    marginBottom: verticalScale(5),
+  },
+  image: {
+    width: horizontalScale(50),
+    height: verticalScale(50),
+  },
+  searchBarContainer: {
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(24),
+  },
+  highlightedImageContainer: {
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(24),
+    maxHeight: verticalScale(160),
+  },
+  tabContainer: {
+    marginTop: verticalScale(16),
+    marginLeft: horizontalScale(24),
+  },
+  tabItem: {
+    marginRight: horizontalScale(10),
+  },
+  donationsItemContainer: {
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(24),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+  singleDonationItem: {
+    maxWidth: '49%',
+    marginBottom: verticalScale(23),
+  },
+});
 
 export default Home;

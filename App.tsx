@@ -1,18 +1,22 @@
-import {View, Text, SafeAreaView} from 'react-native';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import MainNavigation from './src/navigation/MainNavigation';
+import {View, Text, SafeAreaView} from 'react-native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
-import store, {persistor} from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
+import {NavigationContainer} from '@react-navigation/native';
+
+import store, {persistor} from './redux/store';
+import RootNavigation from './src/navigation/RootNavigation';
 
 const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
-        <NavigationContainer>
-          <MainNavigation />
-        </NavigationContainer>
+        <GestureHandlerRootView style={{flex: 1}}>
+          <NavigationContainer>
+            <RootNavigation />
+          </NavigationContainer>
+        </GestureHandlerRootView>
       </PersistGate>
     </Provider>
   );

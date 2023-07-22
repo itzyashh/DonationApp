@@ -1,13 +1,15 @@
-import {View, Text, TextInput, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import PropTypes from 'prop-types';
+import {TextInput, StyleSheet, Pressable} from 'react-native';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+
 import {
   horizontalScale,
   scaleFontSize,
   verticalScale,
 } from '../../assets/fonts/styles/scaling';
-import PropTypes from 'prop-types';
+
 const SearchBar = props => {
   const textInputRef = React.useRef(null);
   const [search, setSearch] = React.useState('');
@@ -30,16 +32,18 @@ const SearchBar = props => {
         ref={textInputRef}
         style={styles.searchInput}
         placeholderTextColor={'#686C7A'}
-        placeholder="Search"
+        placeholder={props.placeholder}
       />
     </Pressable>
   );
 };
 SearchBar.defaultProps = {
   onPress: () => {},
+  placeholder: 'placeholder',
 };
 SearchBar.propTypes = {
   onPress: PropTypes.func,
+  placeholder: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

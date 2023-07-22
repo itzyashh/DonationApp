@@ -1,11 +1,13 @@
-import {View, Text, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
+
 import {
   horizontalScale,
   scaleFontSize,
   verticalScale,
 } from '../../assets/fonts/styles/scaling';
+
 const Badge = props => {
   const [width, setWidth] = React.useState(0);
   const textRef = React.useRef(null);
@@ -17,6 +19,7 @@ const Badge = props => {
   return (
     <View onPress={props.onPress} style={[styles.Badge, BadgeWidth]}>
       <Text
+        numberOfLines={1}
         onTextLayout={e => {
           setWidth(e.nativeEvent.lines[0].width);
         }}
@@ -41,6 +44,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(10),
     borderRadius: horizontalScale(50),
     justifyContent: 'center',
+    maxWidth: horizontalScale(130),
   },
 
   title: {
