@@ -1,30 +1,76 @@
-import {View, Text, SafeAreaView} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Pressable,
+  Touchable,
+  TouchableOpacity,
+  TextInput,
+  Button,
+} from 'react-native';
+import React, {useState} from 'react';
 
 import {globalStyle} from '../../assets/fonts/styles/globalStyle';
 import Header from '../components/Header';
-import Button from '../components/Button';
 import Tab from '../components/Tab';
 import Badge from '../components/Badge';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {
+  faBackward,
+  faCancel,
+  faCross,
+  faEdit,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../components/SearchBar';
 import SingleDonationItem from '../components/SingleDonationItem';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateFirstName} from '../redux/reducers/User';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const name = useSelector(state => state.user.firstName);
+  const [edit, setEdit] = useState(false);
+  const [updateName, setUpdateName] = useState('');
   const onPress = () => {
-    console.log('Button Pressed');
+    dispatch(updateFirstName(updateName));
+    setEdit(false);
   };
+  console.log(edit);
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
-      <SingleDonationItem
-        BadgeTitle="Environment"
-        uri={
-          'https://img.pixers.pics/pho_wat(s3:700/FO/44/24/64/31/700_FO44246431_ab024cd8251bff09ce9ae6ecd05ec4a8.jpg,525,700,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,305,650,jpg)/stickers-cactus-cartoon-illustration.jpg.jpg'
-        }
-        title="Tree Cactus"
-        price={44}
-      />
+      <View style={{flexDirection: 'row', gap: 30}}>
+        <Text>{name}</Text>
+        <TouchableOpacity
+          disabled={edit}
+          onPress={() => {
+            setEdit(!edit);
+          }}>
+          <FontAwesomeIcon icon={faEdit} />
+        </TouchableOpacity>
+      </View>
+      {edit && (
+        <View
+          style={{
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <TextInput
+            value={updateName}
+            onChangeText={setUpdateName}
+            placeholder="Enter your name"
+          />
+          <View>
+            <Button title="Update" onPress={onPress} />
+            <Button
+              color={'red'}
+              title="Cancel"
+              onPress={() => setEdit(!edit)}
+            />
+          </View>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
